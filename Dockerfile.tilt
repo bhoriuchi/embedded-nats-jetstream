@@ -1,0 +1,8 @@
+FROM golang:1.19
+
+EXPOSE 4222
+EXPOSE 6222
+EXPOSE 8222
+COPY ./build/enats /app/enats
+
+ENTRYPOINT ["/app/enats"]

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    io.enats.service: enats
+  name: enats
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.enats.service: enats
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+      creationTimestamp: null
+      labels:
+        io.enats.network/dev: "true"
+        io.enats.service: enats
+    spec:
+      containers:
+        - image: enats
+          name: enats
+          env:
+            - name: ENATS_ROUTES
+              value: enats.default.svc.cluster.local:6222
+
+          ports:
+            - containerPort: 4222
+            - containerPort: 6222
+            - containerPort: 8222
+          resources: {}
+      restartPolicy: Always
+status: {}

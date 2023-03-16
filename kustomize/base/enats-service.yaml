@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  creationTimestamp: null
+  labels:
+    io.enats.service: enats
+  name: enats
+spec:
+  ports:
+    - name: "broker"
+      protocol: TCP
+      port: 4222
+      targetPort: 4222
+    - name: "cluster"
+      protocol: TCP
+      port: 6222
+      targetPort: 6222
+    - name: "http"
+      port: 8222
+      targetPort: 8222
+  selector:
+    io.enats.service: enats
+status:
+  loadBalancer: {}
